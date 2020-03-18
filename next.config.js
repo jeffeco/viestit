@@ -1,7 +1,10 @@
 /* eslint-disable */
 const withCss = require('@zeit/next-css')
+const withOffline = require('next-offline')
 
-module.exports = withCss({
+const config = {
+  poweredByHeader: false,
+
   webpack: (config, { isServer }) => {
     if (isServer) {
       const antStyles = /antd\/.*?\/style\/css.*?/
@@ -25,4 +28,7 @@ module.exports = withCss({
     }
     return config
   },
-})
+}
+
+
+module.exports = withCss(withOffline(config))

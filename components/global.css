@@ -1,0 +1,23 @@
+
+
+.login {
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  padding: 85px 65px !important;
+  padding-top: 25px !important;
+  padding-bottom: 55px !important;
+}
+
+.ant-select-lg .ant-select-selection--single {
+  height: 47px !important;
+}
+
+.ant-select-lg .ant-select-selection__rendered {
+  line-height: 44px !important;
+}

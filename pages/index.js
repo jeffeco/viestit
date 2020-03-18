@@ -1,74 +1,95 @@
-import {
-  Form,
-  Select,
-  InputNumber,
-  DatePicker,
-  Switch,
-  Slider,
-  Button,
-} from 'antd'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import Login from '../components/Login'
+import cookie from 'cookie'
+import Cookies from 'js-cookie'
+import Footer from '../components/Footer'
 
-const FormItem = Form.Item
-const Option = Select.Option
+const Bg = styled.div`
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -22;
+  background: linear-gradient(-134deg, #ff2828, #e73c7e, #f7da2c, #ff7b2e);
+  background-size: 400% 400%;
+  animation: gradient 30s ease infinite;
 
-export default () => (
-  <div style={{ marginTop: 100 }}>
-    <Form layout="horizontal">
-      <FormItem
-        label="Input Number"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
-      >
-        <InputNumber
-          size="large"
-          min={1}
-          max={10}
-          style={{ width: 100 }}
-          defaultValue={3}
-          name="inputNumber"
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+`
+
+const Card = styled.div`
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+
+  padding-top: 25px;
+`
+
+const Index = ({ reset }) => {
+  const [msg, setMsg] = useState('')
+  useEffect(() => {
+    if (reset) {
+      Cookies.remove('SSID')
+      setMsg('Kirjaudu uudelleen')
+    }
+  }, [reset])
+  return (
+    <>
+      {/* <div css="display: flex; align-items: center; max-width: 1100px; margin: 0 auto;">
+        <img
+          css="flex: 1; margin-bottom: 0px; max-width: 150px; margin-top: 3px;"
+          src="/images/Viestit.svg"
+          alt="Logo"
         />
-        <a href="#">Link</a>
-      </FormItem>
+      </div> */}
+      <div>
+        <Bg />
+        <Card className="login">
+          <Login msg={msg} />
+        </Card>
+        <Footer />
+      </div>
+    </>
+  )
+}
 
-      <FormItem label="Switch" labelCol={{ span: 8 }} wrapperCol={{ span: 8 }}>
-        <Switch defaultChecked name="switch" />
-      </FormItem>
+export async function getServerSideProps(ctx) {
+  if (ctx.query.r) {
+    return {
+      props: {
+        reset: true
+      }
+    }
+  }
+  const headerCookies = ctx.req.headers.cookie
+  if (!headerCookies) {
+    return {
+      props: {}
+    }
+  } else {
+    const cookies = cookie.parse(headerCookies)
+    if (cookies.SSID) {
+      ctx.res.writeHead(301, {
+        Location: '/viestit'
+      })
+      ctx.res.end()
+    }
+    return {
+      props: {} // will be passed to the page component as props
+    }
+  }
+}
 
-      <FormItem label="Slider" labelCol={{ span: 8 }} wrapperCol={{ span: 8 }}>
-        <Slider defaultValue={70} />
-      </FormItem>
-
-      <FormItem label="Select" labelCol={{ span: 8 }} wrapperCol={{ span: 8 }}>
-        <Select
-          size="large"
-          defaultValue="lucy"
-          style={{ width: 192 }}
-          name="select"
-        >
-          <Option value="jack">jack</Option>
-          <Option value="lucy">lucy</Option>
-          <Option value="disabled" disabled>
-            disabled
-          </Option>
-          <Option value="yiminghe">yiminghe</Option>
-        </Select>
-      </FormItem>
-
-      <FormItem
-        label="DatePicker"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 8 }}
-      >
-        <DatePicker name="startDate" />
-      </FormItem>
-      <FormItem style={{ marginTop: 48 }} wrapperCol={{ span: 8, offset: 8 }}>
-        <Button size="large" type="primary" htmlType="submit">
-          OK
-        </Button>
-        <Button size="large" style={{ marginLeft: 8 }}>
-          Cancel
-        </Button>
-      </FormItem>
-    </Form>
-  </div>
-)
+export default Index
