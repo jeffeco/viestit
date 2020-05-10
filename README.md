@@ -1,42 +1,17 @@
-# Ant Design example
+# Viestit
 
-This example shows how to use Next.js along with [Ant Design of React](http://ant.design). This is intended to show the integration of this UI toolkit with the Framework.
+Tehty Nextil teipillä ja erikeepperillä
 
-## Deploy your own
+## Wilma serverin vaihto
 
-Deploy the example using [ZEIT Now](https://zeit.co/now):
+Toimii pelkästään kangasalan wilma käyttäjillä pystyt vaihtamaan wilma osoitteen _components/api/wilma.js_ paikasta vaihtamalla https://kangasala.wilma.pirnet.fi/ osoitteen omalla wilma osoitteellasi
 
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/zeit/next.js/tree/canary/examples/with-ant-design)
-
-## How to use
-
-### Using `create-next-app`
-
-Execute [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## Kuinka käyttää
 
 ```bash
-npm init next-app --example with-ant-design with-ant-design-app
-# or
-yarn create next-app --example with-ant-design with-ant-design-app
-```
-
-### Download manually
-
-Download the example:
-
-```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-ant-design
-cd with-ant-design
-```
-
-Install it and run:
-
-```bash
-npm install
-npm run dev
-# or
 yarn
-yarn dev
-```
+tai npm i
 
-Deploy it to the cloud with [ZEIT Now](https://zeit.co/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+yarn dev
+tai npm run dev
+```
