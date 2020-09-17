@@ -432,6 +432,7 @@ export async function getServerSideProps(ctx) {
     })
     ctx.res.end()
   }
+  // const cookies = {}
   const cookies = cookie.parse(headerCookies)
   if (cookies.SSID) {
     const messages = await wilma.GetMessages(cookies.SSID).catch(() => {

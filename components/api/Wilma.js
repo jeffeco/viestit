@@ -26,7 +26,7 @@ function GetSID() {
   return new Promise((resolve, reject) => {
     try {
       request(
-        { url: 'https://kangasala.wilma.pirnet.fi/', method: 'GET' },
+        { url: 'https://kangasala.inschool.fi/', method: 'GET' },
         (error, res, body) => {
           if (error) return reject(error)
           let hiddenInput = ''
@@ -60,7 +60,7 @@ exports.LoginWilma = async function(username, password) {
     var SESSIONID = await GetSID().catch(err => reject(err))
     // initialize postOptions wich will be sent to wilma
     const postOptions = {
-      url: 'https://kangasala.wilma.pirnet.fi/login',
+      url: 'https://kangasala.inschool.fi/login',
       headers: 'Wilma2LoginID=' + SESSIONID,
       method: 'POST',
       jar: cJar,
@@ -89,7 +89,7 @@ exports.GetMessages = function(SID) {
   return new Promise((resolve, reject) => {
     try {
       const postOptions = {
-        url: 'https://kangasala.wilma.pirnet.fi/messages/list',
+        url: 'https://kangasala.inschool.fi/messages/list',
         headers: {
           Cookie: 'Wilma2SID=' + SID
         },
@@ -113,7 +113,7 @@ exports.GetMessages = function(SID) {
 exports.GetSchedule = function(SID) {
   return new Promise((resolve, reject) => {
     const postOptions = {
-      url: 'https://kangasala.wilma.pirnet.fi/overview',
+      url: 'https://kangasala.inschool.fi/overview',
       headers: {
         Cookie: 'Wilma2SID=' + SID
       },
@@ -133,7 +133,7 @@ exports.GetMessageBody = function(messageID, SID) {
     try {
       const postOptions = {
         url:
-          'https://kangasala.wilma.pirnet.fi/messages/' +
+          'https://kangasala.inschool.fi/messages/' +
           messageID +
           '?recipients',
         headers: {
